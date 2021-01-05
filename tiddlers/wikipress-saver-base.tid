@@ -1,0 +1,53 @@
+/*\
+title: $:/RobertP3469/modules/savers/wikipress-saver-base.js
+type: application/javascript
+module-type: saver
+\*/
+(function(){
+
+"use strict";
+
+var findSaver = function(window) {
+	try {
+		return window && window.$tw && window.$tw.wikipressSaver;
+	} catch (err) {
+		// Catching the exception is the most reliable way to detect cross-origin iframe errors.
+		// For example, instead of saying that `window.parent.$tw` is undefined, Firefox will throw
+		//   Uncaught DOMException: Permission denied to access property "$tw" on cross-origin object
+		console.log({ msg: "wikipress saver is disabled", reason: err });
+		return null;
+	}
+};
+
+var saver = findSaver(window) || findSaver(window.parent) || {};
+
+var WikipressSaver = function(wiki) {
+};
+
+WikipressSaver.prototype.save = function(text,method,callback) {
+	return saver.save(text, method, callback);
+};
+
+/*
+Information about this saver
+*/
+WikipressSaver.prototype.info = {
+	name: "wikipress",
+	priority: saver.priority || 4000,
+	capabilities: ["save"]
+};
+
+/*
+Static method that returns true if this saver is capable of working
+*/
+exports.canSave = function(wiki) {
+	return !!(saver.save);
+};
+
+/*
+Create an instance of this saver
+*/
+exports.create = function(wiki) {
+	return new WikipressSaver(wiki);
+};
+})();

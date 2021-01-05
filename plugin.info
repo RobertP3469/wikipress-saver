@@ -1,0 +1,11 @@
+{
+    "title": "$:/plugins/RobertP3469/wikipress-saver",
+	"name": "Wikipress Saver",
+    "description": "Custom TW5 saver that saves to WordPress site WikiPress.pub.",
+    "author": "Robert Payne",
+    "version": "0.0.1",
+    "core-version": ">=5.0.0",
+    "source": "https://github.com/RobertP3469/wikipress-saver",
+	"list": "license",
+    "plugin-type": "plugin"
+}
